@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">PetsMart</string>
+
+    <string name="title_activity_google_login">googleLogin</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_bottom_nav">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Profile</string>
+    <string name="title_notifications">Add Post</string>
+    <string name="title_community">Community</string>
+
+    <string-array name="catogeroy">
+
+        <item>Pet</item>
+        <item>Pet Food</item>
+        <item>Veterinary Services</item>
+        <item>Farm Animals</item>
+        <item>Animal Accessories</item>
+    </string-array>
+    <string-array name="animal">
+
+        <item>All</item>
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Fish</item>
+        <item>Bird</item>
+        <item>Other</item>
+
+    </string-array>
+
+
+    <string-array name="district_array">
+        <item>Kandy</item>
+        <item>Gampaha</item>
+        <item>Colombo</item>
+        <item>Kalutara</item>
+        <item>Galle</item>
+        <item>Anuradhapura</item>
+        <item>Nuwera-Eliya</item>
+        <item>Kurunegala</item>
+        <item>Trincomalee</item>
+        <item>Ampara</item>
+        <item>Batticaloa</item>
+        <item>Kilinochchi</item>
+        <item>Mulathivu</item>
+        <item>Vauniya</item>
+        <item>Mannar</item>
+        <item>Hambanthota</item>
+        <item>Jaffna</item>
+        <item>Matara</item>
+        <item>Kegalle</item>
+        <item>Polonnaruwa</item>
+        <item>Rathnapura</item>
+        <item>Monaragala</item>
+        <item>Badulla</item>
+        <item>Puttalam</item>
+        <item>Matale</item>
+
+    </string-array>
+
+</resources>

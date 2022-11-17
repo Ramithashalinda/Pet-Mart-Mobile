@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPostMarcketPlaceActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="340dp"
+                android:layout_height="340dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp" />
+
+
+            <Button
+                android:id="@+id/button_chose_image"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/my_button_bg"
+                android:drawableLeft="@drawable/imgeicon2"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:paddingLeft="20dp"
+                android:text="Choose Image    "
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/image_view"
+                android:textColor="@android:color/background_dark" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/button_chose_image" />
+
+            <LinearLayout
+                android:id="@+id/linearlayout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/view1"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="Select Category"
+
+                    android:textColor="#000000" />
+
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearlayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linearlayout_1"
+              >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+
+                    android:text="Select Animal Type"
+                    android:textColor="#000000" />
+
+                <Spinner
+                    android:id="@+id/spinner_animal_type"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearlayout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linearlayout_2"
+               >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="Select District"
+                    android:textColor="#000000" />
+
+                <Spinner
+                    android:id="@+id/spinner_address"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="49dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearlayout_3"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                android:hint="Name"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/text_price"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_title"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Price"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/text_phone_number"
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_price"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Telephone Number"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/text_view_text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_phone_number"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint=" description"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_margin="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_view_text_description"
+                android:indeterminate="false" />
+
+            <Button
+                android:id="@+id/button_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/color_waw"
+                android:layout_below="@+id/progress_bar"
+                android:layout_centerHorizontal="true"
+                android:text="Post" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="#19B5FE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/nav_host_fragment"-->
+    <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:defaultNavHost="true"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/nav_view"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:navGraph="@navigation/mobile_navigation" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

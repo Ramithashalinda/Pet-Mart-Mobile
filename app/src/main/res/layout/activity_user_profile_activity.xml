@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
+    tools:context=".UserProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/aaaaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pets Mart"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_message_24_icon"
+                android:contentDescription="@null"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/toolbar">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_view_user_profile_image"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pizaamilg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_user_profile_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:maxLines="1"
+            android:layout_marginLeft="8dp"
+            android:text="User Name"
+            android:fontFamily="@font/regular"
+            android:textColor="	#000000"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/text_view_user_profile_user_email_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_marginLeft="8dp"
+            android:text="Email"
+            android:padding="4dp"
+            android:fontFamily="@font/regular"
+            android:textColor="	#000000"
+            android:textSize="20sp"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:background="@drawable/rounded_corners"
+            android:textColor="@android:color/white"
+            android:minWidth="140dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/button_follow"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_user_profile"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/button_follow"/>
+
+    </RelativeLayout>
+
+
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="#19B5FE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</RelativeLayout>
