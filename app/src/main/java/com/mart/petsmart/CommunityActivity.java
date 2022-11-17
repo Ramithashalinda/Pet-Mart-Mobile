@@ -124,14 +124,14 @@ public class CommunityActivity extends AppCompatActivity implements CommunityAda
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                             CommunityModel communityModel=new CommunityModel();
-                              communityModel.setUploadedAt(new Date());
+
 
                             communityModel.setPostByProfileName(value.get( "profileName").toString());
                             communityModel.setTitle(dc.get( "title").toString());
                             communityModel.setDistrict(dc.get( "district").toString());
                             communityModel.setPostByProfileImageUrl(value.get( "profileImageUrl").toString());
                             communityModel.setPostImageUrl(dc.get( "postImageUrl").toString());
-                            communityModel.setUploadedAt(new Date());
+                            communityModel.setUploadedAt(dc.get( "uploadedAt").toString());
                             communityModel.setDescription(dc.get( "description").toString());
                             communityModel.setPrice(Double.valueOf(dc.get( "price").toString()));
                             communityModel.setPhoneNumber(Integer.parseInt(dc.get( "phoneNumber").toString()));

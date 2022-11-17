@@ -126,7 +126,7 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
                                     postViewModel.setDistrict(dc.get( "district").toString());
                                     postViewModel.setPostByProfileImageUrl(value.get( "profileImageUrl").toString());
                                     postViewModel.setPostImageUrl(dc.get( "postImageUrl").toString());
-                                    postViewModel.setUploadedAt(new Date());
+                                    postViewModel.setUploadedAt(dc.get( "uploadedAt").toString());
                                     postViewModel.setDescription(dc.get( "description").toString());
                                     postViewModel.setPrice(Double.valueOf(dc.get( "price").toString()));
                                     postViewModel.setPhoneNumber(Integer.parseInt(dc.get( "phoneNumber").toString()));

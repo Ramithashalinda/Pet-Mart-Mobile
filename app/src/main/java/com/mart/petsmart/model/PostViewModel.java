@@ -8,7 +8,7 @@ public class PostViewModel {
     private String postByProfileImageUrl;
     private String title;
     private String postImageUrl;
-    private Date uploadedAt;
+    private String uploadedAt;
     private String description;
     private Double price;
     private int phoneNumber;
@@ -21,7 +21,7 @@ public class PostViewModel {
     public PostViewModel() {
     }
 
-    public PostViewModel(String postByProfileName, String postByProfileImageUrl, String title, String postImageUrl, Date uploadedAt, String description, Double price, int phoneNumber, String category, String animalType, String district) {
+    public PostViewModel(String postByProfileName, String postByProfileImageUrl, String title, String postImageUrl, String uploadedAt, String description, Double price, int phoneNumber, String category, String animalType, String district) {
         this.postByProfileName = postByProfileName;
         this.postByProfileImageUrl = postByProfileImageUrl;
         this.title = title;
@@ -67,11 +67,11 @@ public class PostViewModel {
         this.postImageUrl = postImageUrl;
     }
 
-    public Date getUploadedAt() {
+    public String getUploadedAt() {
         return uploadedAt;
     }
 
-    public void setUploadedAt(Date uploadedAt) {
+    public void setUploadedAt(String uploadedAt) {
         this.uploadedAt = uploadedAt;
     }
 

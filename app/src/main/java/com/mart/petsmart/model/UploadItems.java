@@ -10,7 +10,7 @@ public class UploadItems {
     private int phoneNumber;
     private String description;
     private String postImageUrl;
-    private Date uploadedAt;
+    private String uploadedAt;
     private String category;
     private String animalType;
     private String district;
@@ -22,7 +22,7 @@ public class UploadItems {
     }
 
 
-    public  UploadItems(String title, Double price, int phoneNumber, String description, String postImageUrl, Date uploadedAt, String category, String animalType, String district) {
+    public  UploadItems(String title, Double price, int phoneNumber, String description, String postImageUrl, String uploadedAt, String category, String animalType, String district) {
         this.title = title;
         this.price = price;
         this.phoneNumber = phoneNumber;
@@ -74,11 +74,11 @@ public class UploadItems {
         this.postImageUrl = postImageUrl;
     }
 
-    public Date getUploadedAt() {
+    public String getUploadedAt() {
         return uploadedAt;
     }
 
-    public void setUploadedAt(Date uploadedAt) {
+    public void setUploadedAt(String uploadedAt) {
         this.uploadedAt = uploadedAt;
     }
 

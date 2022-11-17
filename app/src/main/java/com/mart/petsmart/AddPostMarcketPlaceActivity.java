@@ -35,6 +35,8 @@ import com.google.firebase.storage.UploadTask;
 import com.mart.petsmart.model.UploadItems;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -141,6 +143,14 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
 
 
     }
+
+            private String getDateToday(){
+                DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date=new Date();
+                String today=dateFormat.format(date);
+
+                return today;
+            }
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -194,7 +204,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                                      description =mEditTestDescription.getText().toString();
 
                                      imageUrl=uri.toString();
-                                     uploadDate = String.valueOf(new Date());
+                                     uploadDate = getDateToday();
                                      category =spinnerCategory.getSelectedItem().toString();
                                      animalType =spinnerAnimalType.getSelectedItem().toString();
                                      district=spinnerDistrict.getSelectedItem().toString();
@@ -211,7 +221,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                                      }
                                      else {
                                          // calling method to add data to Firebase Firestore.
-                                           UploadItems uploadItems =new UploadItems( titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,new Date(),category,animalType,district);
+                                           UploadItems uploadItems =new UploadItems( titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,uploadDate,category,animalType,district);
                                            collectionReference.document(UUID.randomUUID().toString()).set(uploadItems);
 
                                          Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
