@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/test_view_community_search"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:fontFamily="@font/open_sans"
+            android:hint="Search"
+            android:paddingStart="12dp"
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+        />
+<!--    <EditText-->
+<!--        android:id="@+id/test_view_community_search"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:background="@drawable/search_bg"-->
+<!--        android:drawableLeft="@drawable/ic_search_black_24dp"-->
+<!--        android:drawablePadding="12dp"-->
+<!--        android:ems="10"-->
+<!--        android:fontFamily="@font/open_sans"-->
+<!--        android:hint="Search"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:paddingStart="12dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--         />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/community_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test_view_community_search"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
