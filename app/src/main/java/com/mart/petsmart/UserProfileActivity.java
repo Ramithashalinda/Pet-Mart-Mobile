@@ -97,6 +97,9 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
         GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
 
 
+
+
+        
         firebaseFirestore.collection("users").document(signInAccount.getId()).collection("uploads")
              //     .orderBy("uploadedAt")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
