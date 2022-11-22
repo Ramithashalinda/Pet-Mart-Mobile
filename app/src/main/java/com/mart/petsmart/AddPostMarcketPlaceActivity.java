@@ -3,7 +3,9 @@ package com.mart.petsmart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -138,6 +140,28 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                     Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 }
                 uploadFile();
+            }
+        });
+
+
+        mImageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                new AlertDialog.Builder(AddPostMarcketPlaceActivity.this)
+                        .setIcon(android.R.drawable.btn_plus)
+                        .setTitle("Are you sure ?")
+                        .setMessage("Do you want to delete this item ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mImageView.setImageBitmap(null);
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+
+
+                return true;
             }
         });
 
