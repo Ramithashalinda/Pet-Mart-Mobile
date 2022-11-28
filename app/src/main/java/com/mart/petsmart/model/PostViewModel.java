@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class PostViewModel {
 
+    private String id;
+
     private String postByProfileName;
     private String postByProfileImageUrl;
     private String title;
@@ -21,7 +23,8 @@ public class PostViewModel {
     public PostViewModel() {
     }
 
-    public PostViewModel(String postByProfileName, String postByProfileImageUrl, String title, String postImageUrl, String uploadedAt, String description, Double price, int phoneNumber, String category, String animalType, String district) {
+    public PostViewModel(String id,String postByProfileName, String postByProfileImageUrl, String title, String postImageUrl, String uploadedAt, String description, Double price, int phoneNumber, String category, String animalType, String district) {
+        this.id=id;
         this.postByProfileName = postByProfileName;
         this.postByProfileImageUrl = postByProfileImageUrl;
         this.title = title;
@@ -33,6 +36,14 @@ public class PostViewModel {
         this.category = category;
         this.animalType = animalType;
         this.district = district;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPostByProfileName() {

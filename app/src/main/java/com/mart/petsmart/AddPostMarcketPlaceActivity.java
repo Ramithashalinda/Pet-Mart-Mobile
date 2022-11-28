@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mart.petsmart.model.UploadItems;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,15 +66,75 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
 
     private Spinner spinnerCategory,spinnerAnimalType,spinnerDistrict;
 
-    private String  titleName,price,phoneNumber,description,imageUrl,uploadDate,category,animalType,district;
+    private String  id,titleName,price,phoneNumber,description,imageUrl,uploadDate,category,animalType,district;
 
-   // String imageUrl;
+    private String  pPetTitle,pImageUrl,pUploadAt,pDescription,pPrice,pPhoneNumber,pCategory,pAnimalType,pDistrict;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post_marcket_place);
+
+        Bundle bundle=getIntent().getExtras();
+        if (bundle != null){
+            Toast.makeText(AddPostMarcketPlaceActivity.this, "Update data", Toast.LENGTH_SHORT).show();
+
+            pPetTitle=bundle.getString("PET_TITLE_DATA");
+            pImageUrl=bundle.getString("POST_IMAGE_URL_DATA");
+            pUploadAt=bundle.getString("UPLOAD_AT_DATA");
+            pDescription=bundle.getString("DESCRIPTION_DATA");
+
+            pPrice=bundle.getString("PRICE_DATA");
+            pPhoneNumber=bundle.getString("PHONE_NUMBER_DATA");
+
+            pCategory=bundle.getString("CATEGORY_DATA");
+            pAnimalType=bundle.getString("ANIMAL_TYPE_DATA");
+            pDistrict=bundle.getString("DISTRICT_DATA");
+
+
+
+            System.out.println("pet title  "+ pPetTitle);
+            System.out.println("Image url  "+ pImageUrl);
+            System.out.println("upload time  "+ pUploadAt);
+            System.out.println("description  "+ pDescription);
+            System.out.println("price  "+ pPrice);
+            System.out.println("phone number  "+ pPhoneNumber);
+            System.out.println("category  "+ pCategory);
+            System.out.println("animal type  "+ pAnimalType);
+            System.out.println("district  "+ pDistrict);
+
+try {
+
+    mEditTextTitleName.setText(pPetTitle);
+    Picasso.get()
+            .load(pImageUrl)
+            .fit().centerCrop()
+            .into(mImageView);
+
+    mEditTestDescription.setText(pDescription);
+    mEditTextPrice.setText(pPrice);
+    mEditTextPhoneNumber.setText(pPhoneNumber);
+}
+catch (Exception e){
+    System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHH  "+ e);
+}
+
+
+
+//
+
+//                    spinnerAnimalType
+//                    spinnerDistrict
+
+
+
+
+        }else {
+            Toast.makeText(AddPostMarcketPlaceActivity.this, "Save data", Toast.LENGTH_SHORT).show();
+
+        }
+
 
 
         bottomNavigationView =(BottomNavigationView) findViewById(R.id.nav_view);
@@ -148,7 +209,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
             @Override
             public boolean onLongClick(View view) {
                 new AlertDialog.Builder(AddPostMarcketPlaceActivity.this)
-                        .setIcon(android.R.drawable.btn_plus)
+                        .setIcon(R.drawable.ic_delete_24)
                         .setTitle("Are you sure ?")
                         .setMessage("Do you want to delete this item ?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -223,12 +284,13 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                                  public void onSuccess(Uri uri) {
 
                                      titleName=mEditTextTitleName.getText().toString().trim();
-                                     price=mEditTextPrice.getText().toString();
-                                     phoneNumber = mEditTextPhoneNumber.getText().toString();
-                                     description =mEditTestDescription.getText().toString();
+                                     price=mEditTextPrice.getText().toString().trim();
+                                     phoneNumber = mEditTextPhoneNumber.getText().toString().trim();
+                                     description =mEditTestDescription.getText().toString().trim();
 
                                      imageUrl=uri.toString();
                                      uploadDate = getDateToday();
+                                     id= UUID.randomUUID().toString();
                                      category =spinnerCategory.getSelectedItem().toString();
                                      animalType =spinnerAnimalType.getSelectedItem().toString();
                                      district=spinnerDistrict.getSelectedItem().toString();
@@ -245,8 +307,8 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                                      }
                                      else {
                                          // calling method to add data to Firebase Firestore.
-                                           UploadItems uploadItems =new UploadItems( titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,uploadDate,category,animalType,district);
-                                           collectionReference.document(UUID.randomUUID().toString()).set(uploadItems);
+                                           UploadItems uploadItems =new UploadItems( id,titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,uploadDate,category,animalType,district);
+                                           collectionReference.document(id).set(uploadItems);
 
                                          Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                                          mEditTextTitleName.setText("");

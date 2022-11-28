@@ -7,10 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,8 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mart.petsmart.adapter.PostViewAdapter;
-import com.mart.petsmart.model.CommunityModel;
+import com.mart.petsmart.adapter.ProfilePostAdapter;
 import com.mart.petsmart.model.PostViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,15 +38,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserProfileActivity extends AppCompatActivity implements PostViewAdapter.OnItemClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class UserProfileActivity extends AppCompatActivity implements ProfilePostAdapter.OnItemClickListener {
 
     private RecyclerView mRecyclerView;
-    private PostViewAdapter postViewAdapter;
+    private ProfilePostAdapter profileViewAdapter;
     private FirebaseFirestore firebaseFirestore;
     private ValueEventListener mDBListener;
     private DatabaseReference mDatabaseReference;
     private List<PostViewModel> postViewModelsList;
     private ProgressDialog progressDialog;
+
+   private TextView userName,userEmail;
+  private   CircleImageView userprofileImage;
 
     private void openDetailActivity(String[] data){
         Intent intent=new Intent(this,ProductDetailsActivity.class);
@@ -60,19 +70,41 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
         startActivity(intent);
 
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_activity);
+
+        userName=findViewById(R.id.text_view_user_profile_user_name);
+        userEmail=findViewById(R.id.text_view_user_profile_user_email_address);
+        userprofileImage=findViewById(R.id.image_view_user_profile_image);
+        GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            userName.setText(signInAccount.getDisplayName());
+            userEmail.setText(signInAccount.getEmail());
+            Picasso.get()
+                    .load(signInAccount.getPhotoUrl())
+                    .fit().centerCrop()
+                    .into(userprofileImage);
+        }
+
+
+
+
+
+
 
         mRecyclerView =findViewById(R.id.recycler_view_user_profile);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         postViewModelsList =new ArrayList<>();
-        postViewAdapter=new PostViewAdapter(UserProfileActivity.this, postViewModelsList);
-        mRecyclerView.setAdapter(postViewAdapter);
-        postViewAdapter.setOnItemClickListener(UserProfileActivity.this);
+        profileViewAdapter =new ProfilePostAdapter(UserProfileActivity.this, postViewModelsList);
+        mRecyclerView.setAdapter(profileViewAdapter);
+        profileViewAdapter.setOnItemClickListener(UserProfileActivity.this);
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -95,10 +127,6 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
     private void EventChangeListener(){
 
         GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
-
-
-
-
         
         firebaseFirestore.collection("users").document(signInAccount.getId()).collection("uploads")
              //     .orderBy("uploadedAt")
@@ -107,6 +135,7 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error != null){
                             if(progressDialog.isShowing())
+                              //  postViewModelsList.clear();
                                 progressDialog.dismiss();
                             Log.e("FireStore error",error.getMessage());
                             return;
@@ -135,13 +164,14 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
                                     postViewModel.setPhoneNumber(Integer.parseInt(dc.get( "phoneNumber").toString()));
                                     postViewModel.setCategory(dc.get( "category").toString());
                                     postViewModel.setAnimalType(dc.get( "animalType").toString());
+                                    postViewModel.setId(dc.get("id").toString());
 
                                     postViewModelsList.add(postViewModel);
 
                                 }
                             });
 
-                            postViewAdapter.notifyDataSetChanged();
+                            profileViewAdapter.notifyDataSetChanged();
                             if(progressDialog.isShowing())
                                 progressDialog.dismiss();
 
@@ -152,7 +182,6 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
 
 
     }
-    //String profileName, String petName, String location, String postImageUrl, Date uploadedAt, String description, Double price)
 
     public void onItemClick(int position) {
 
@@ -183,26 +212,68 @@ public class UserProfileActivity extends AppCompatActivity implements PostViewAd
 
     @Override
     public void onDeleteItemClick(int position) {
-//        PostViewModel clickedPostViewModel=postViewModelsList.get(position);
-//        final String selectedKey=clickedPostViewModel.getPostImageUrl();
-//
-//
-//        firebaseFirestore.collection("uploads").document(clickedPostViewModel.getPostImageUrl())
-//                .delete()
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//
-//
-//                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure( Exception e) {
-//                        Log.w(TAG, "Error deleting document", e);
-//                    }
-//                });
+        new AlertDialog.Builder(UserProfileActivity.this)
+                .setIcon(R.drawable.ic_delete_24)
+                .setTitle("Are you sure ?")
+                .setMessage("Do you want to delete this item ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        PostViewModel clickedPostViewModel = postViewModelsList.get(position);
+                        final String selectedKey = clickedPostViewModel.getPostImageUrl();
+                        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(UserProfileActivity.this);
+                        firebaseFirestore.collection("users").document(signInAccount.getId()).collection("uploads").document(postViewModelsList.get(position).getId()
+                                )
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                        Toast.makeText(UserProfileActivity.this, "Item successfully deleted!", Toast.LENGTH_SHORT).show();
+
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("No",null)
+                .show();
+
+    }
+
+    @Override
+    public void onUpdateItemClick(int position) {
+         String title=postViewModelsList.get(position).getTitle();
+         String postImageUrl=postViewModelsList.get(position).getPostImageUrl();
+         String uploadedAt=postViewModelsList.get(position).getUploadedAt();
+         String description=postViewModelsList.get(position).getDescription();
+         String price= String.valueOf(postViewModelsList.get(position).getPrice());
+         String phoneNumber= String.valueOf(postViewModelsList.get(position).getPhoneNumber());
+         String category=postViewModelsList.get(position).getCategory();
+         String animalType=postViewModelsList.get(position).getAnimalType();
+         String district=postViewModelsList.get(position).getDistrict();
+
+            Intent intent=new Intent(this,AddPostMarcketPlaceActivity.class);
+            intent.putExtra("PET_TITLE_DATA",title);
+            intent.putExtra("POST_IMAGE_URL_DATA",postImageUrl);
+            intent.putExtra("UPLOAD_AT_DATA",uploadedAt);
+            intent.putExtra("DESCRIPTION_DATA",description);
+            intent.putExtra("PRICE_DATA",price);
+            intent.putExtra("PHONE_NUMBER_DATA",phoneNumber);
+            intent.putExtra("CATEGORY_DATA",category);
+            intent.putExtra("ANIMAL_TYPE_DATA",animalType);
+            intent.putExtra("DISTRICT_DATA",district);
+
+//          String  pPetTitle,pImageUrl,pUploadAt,pDescription,pPrice,pPhoneNumber,pCategory,pAnimalType,pDistrict;
+
+
+            startActivity(intent);
 
     }
 }

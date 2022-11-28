@@ -65,18 +65,18 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewUserName,textViewDescription,textViewPetPrice;
-        public ImageView imageViewPetImageItem;
+        private TextView textTitle,textDate;
+        private ImageView imageViewPetImageItem;
 
 
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-//
-//            imageViewPetImageItem = itemView.findViewById(R.id.image_view_petImageItem);
-//          //  textViewUserName = itemView.findViewById(R.id.text_view_userName);
-//            textViewDescription = itemView.findViewById(R.id.text_view_post_location);
-//            textViewPetPrice = itemView.findViewById(R.id.text_view_post_user_name);
+
+            imageViewPetImageItem = itemView.findViewById(R.id.image_view_upload);
+            textTitle = itemView.findViewById(R.id.text_view_title);
+            textDate = itemView.findViewById(R.id.text_dateAt);
+
 
         }
     }

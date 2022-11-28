@@ -5,6 +5,7 @@ import java.util.Date;
 public class UploadItems {
 
 
+    private String id;
     private String title;
     private Double price;
     private int phoneNumber;
@@ -22,7 +23,8 @@ public class UploadItems {
     }
 
 
-    public  UploadItems(String title, Double price, int phoneNumber, String description, String postImageUrl, String uploadedAt, String category, String animalType, String district) {
+    public  UploadItems(String id,String title, Double price, int phoneNumber, String description, String postImageUrl, String uploadedAt, String category, String animalType, String district) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.phoneNumber = phoneNumber;
@@ -32,6 +34,14 @@ public class UploadItems {
         this.category = category;
         this.animalType = animalType;
         this.district = district;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
