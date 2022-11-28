@@ -64,7 +64,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
 
     private String  id,titleName,price,phoneNumber,description,imageUrl,uploadDate,category,animalType,district;
 
-    private String  pPetTitle,pImageUrl,pUploadAt,pDescription,pPrice,pPhoneNumber,pCategory,pAnimalType,pDistrict;
+    private String  pPetID,pPetTitle,pImageUrl,pUploadAt,pDescription,pPrice,pPhoneNumber,pCategory,pAnimalType,pDistrict;
 
 
     @Override
@@ -116,6 +116,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
         Bundle bundle=getIntent().getExtras();
         if (bundle != null){
             Toast.makeText(AddPostMarcketPlaceActivity.this, "Update data", Toast.LENGTH_SHORT).show();
+            pPetID=bundle.getString("PET_ID");
             pPetTitle=bundle.getString("PET_TITLE_DATA");
             pImageUrl=bundle.getString("POST_IMAGE_URL_DATA");
             pUploadAt=bundle.getString("UPLOAD_AT_DATA");
@@ -125,6 +126,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
             pCategory=bundle.getString("CATEGORY_DATA");
             pAnimalType=bundle.getString("ANIMAL_TYPE_DATA");
             pDistrict=bundle.getString("DISTRICT_DATA");
+
 
 
             System.out.println("pet title  "+ pPetTitle);
@@ -240,93 +242,183 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
 
 
     private void uploadFile(){
-        if (mImageUri !=null)
-        {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-                    + "."+getFileExtension(mImageUri));
+        Bundle bundle1=getIntent().getExtras();
+        if (bundle1 != null){
+            if (mImageUri !=null)
+            {
+                StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+                        + "."+getFileExtension(mImageUri));
 
-             mUploadTask = fileReference.putFile(mImageUri)
-                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                         @Override
-                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                             Handler handler =new Handler();
-                             handler.postDelayed(new Runnable() {
-                                 @Override
-                                 public void run() {
-                                     mProgressBar.setProgress(0);
-                                 }
-                             },500);
+                mUploadTask = fileReference.putFile(mImageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Handler handler =new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgressBar.setProgress(0);
+                                    }
+                                },500);
 
 
-                             taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
+                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
 
-                                     titleName=mEditTextTitleName.getText().toString().trim();
-                                     price=mEditTextPrice.getText().toString().trim();
-                                     phoneNumber = mEditTextPhoneNumber.getText().toString().trim();
-                                     description =mEditTestDescription.getText().toString().trim();
+                                        titleName=mEditTextTitleName.getText().toString().trim();
+                                        price=mEditTextPrice.getText().toString().trim();
+                                        phoneNumber = mEditTextPhoneNumber.getText().toString().trim();
+                                        description =mEditTestDescription.getText().toString().trim();
 
-                                     imageUrl=uri.toString();
-                                     uploadDate = getDateToday();
-                                     id= UUID.randomUUID().toString();
-                                     category =spinnerCategory.getSelectedItem().toString();
-                                     animalType =spinnerAnimalType.getSelectedItem().toString();
-                                     district=spinnerDistrict.getSelectedItem().toString();
-                                     String regexStr = "^[0-9]$";
+                                        imageUrl=uri.toString();
+                                        uploadDate = getDateToday();
+                                        id= pPetID;
+                                        category =spinnerCategory.getSelectedItem().toString();
+                                        animalType =spinnerAnimalType.getSelectedItem().toString();
+                                        district=spinnerDistrict.getSelectedItem().toString();
+                                        String regexStr = "^[0-9]$";
 
-                                     if (TextUtils.isEmpty(titleName)) {
-                                         mEditTextTitleName.setError("Please enter title");
-                                     } else if (TextUtils.isEmpty(price)) {
-                                         mEditTextPrice.setError("Please enter price");
-                                     } else if (TextUtils.isEmpty(phoneNumber)) {
-                                         mEditTextPhoneNumber.setError("Please enter valid phone number");
-                                     } else if(TextUtils.isEmpty(description)){
-                                         mEditTestDescription.setError("Please enter description");
-                                     }
-                                     else {
-                                         // calling method to add data to Firebase Firestore.
-                                           UploadItems uploadItems =new UploadItems( id,titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,uploadDate,category,animalType,district);
-                                           collectionReference.document(id).set(uploadItems);
+                                        if (TextUtils.isEmpty(titleName)) {
+                                            mEditTextTitleName.setError("Please enter title");
+                                        } else if (TextUtils.isEmpty(price)) {
+                                            mEditTextPrice.setError("Please enter price");
+                                        } else if (TextUtils.isEmpty(phoneNumber)) {
+                                            mEditTextPhoneNumber.setError("Please enter valid phone number");
+                                        } else if(TextUtils.isEmpty(description)){
+                                            mEditTestDescription.setError("Please enter description");
+                                        }
+                                        else {
+                                            collectionReference.document(id).update("title",titleName,"price",Double.parseDouble(price),"phoneNumber",Integer.parseInt(phoneNumber),"description",description,"postImageUrl",imageUrl,"uploadedAt",uploadDate,"category",category,"animalType",animalType,"district",district);
 
-                                         Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                                         mEditTextTitleName.setText("");
-                                         mEditTextPrice.setText("");
-                                         mEditTextPhoneNumber.setText("");
-                                         mEditTestDescription.setText("");
-                                         mImageView.setImageBitmap(null);
+                                            Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                            mEditTextTitleName.setText("");
+                                            mEditTextPrice.setText("");
+                                            mEditTextPhoneNumber.setText("");
+                                            mEditTestDescription.setText("");
+                                            mImageView.setImageBitmap(null);
 
-                                     }
-
-                                   //  UploadItems uploadItems =new UploadItems( mEditTextTitleName.getText().toString(), Double.parseDouble(mEditTextPrice.getText().toString()), Integer.parseInt(mEditTextPhoneNumber.getText().toString()), mEditTestDescription.getText().toString(), imageUrl, new Date(), spinnerCategory.getSelectedItem().toString(), spinnerAnimalType.getSelectedItem().toString(), spinnerDistrict.getSelectedItem().toString());
-                                   //  collectionReference.document(UUID.randomUUID().toString()).set(uploadItems);
-                                 }
-                             });
+                                        }
+                                    }
+                                });
 
 
 
-                         }
-                     })
-                     .addOnFailureListener(new OnFailureListener() {
-                         @Override
-                         public void onFailure(@NonNull Exception e) {
-                             Toast.makeText(AddPostMarcketPlaceActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AddPostMarcketPlaceActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                         }
-                     })
-                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                         @Override
-                         public void onProgress(UploadTask.TaskSnapshot snapshot) {
-                             double progress =(100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                             mProgressBar.setProgress((int) progress);
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot snapshot) {
+                                double progress =(100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                mProgressBar.setProgress((int) progress);
 
-                         }
-                     });
-                    } else {
-                       Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
 
-                    }
-                }
+            }
+
+        }else {
+
+            if (mImageUri !=null)
+            {
+                StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+                        + "."+getFileExtension(mImageUri));
+
+                mUploadTask = fileReference.putFile(mImageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Handler handler =new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgressBar.setProgress(0);
+                                    }
+                                },500);
+
+
+                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        titleName=mEditTextTitleName.getText().toString().trim();
+                                        price=mEditTextPrice.getText().toString().trim();
+                                        phoneNumber = mEditTextPhoneNumber.getText().toString().trim();
+                                        description =mEditTestDescription.getText().toString().trim();
+
+                                        imageUrl=uri.toString();
+                                        uploadDate = getDateToday();
+                                        id= UUID.randomUUID().toString();
+                                        category =spinnerCategory.getSelectedItem().toString();
+                                        animalType =spinnerAnimalType.getSelectedItem().toString();
+                                        district=spinnerDistrict.getSelectedItem().toString();
+                                        String regexStr = "^[0-9]$";
+
+                                        if (TextUtils.isEmpty(titleName)) {
+                                            mEditTextTitleName.setError("Please enter title");
+                                        } else if (TextUtils.isEmpty(price)) {
+                                            mEditTextPrice.setError("Please enter price");
+                                        } else if (TextUtils.isEmpty(phoneNumber)) {
+                                            mEditTextPhoneNumber.setError("Please enter valid phone number");
+                                        } else if(TextUtils.isEmpty(description)){
+                                            mEditTestDescription.setError("Please enter description");
+                                        }
+                                        else {
+                                            // calling method to add data to Firebase Firestore.
+                                            UploadItems uploadItems =new UploadItems( id,titleName,Double.parseDouble(price),Integer.parseInt(phoneNumber),description,imageUrl,uploadDate,category,animalType,district);
+                                            collectionReference.document(id).set(uploadItems);
+
+                                            Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                            mEditTextTitleName.setText("");
+                                            mEditTextPrice.setText("");
+                                            mEditTextPhoneNumber.setText("");
+                                            mEditTestDescription.setText("");
+                                            mImageView.setImageBitmap(null);
+
+                                        }
+
+                                        //  UploadItems uploadItems =new UploadItems( mEditTextTitleName.getText().toString(), Double.parseDouble(mEditTextPrice.getText().toString()), Integer.parseInt(mEditTextPhoneNumber.getText().toString()), mEditTestDescription.getText().toString(), imageUrl, new Date(), spinnerCategory.getSelectedItem().toString(), spinnerAnimalType.getSelectedItem().toString(), spinnerDistrict.getSelectedItem().toString());
+                                        //  collectionReference.document(UUID.randomUUID().toString()).set(uploadItems);
+                                    }
+                                });
+
+
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AddPostMarcketPlaceActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot snapshot) {
+                                double progress =(100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                mProgressBar.setProgress((int) progress);
+
+                            }
+                        });
+            } else {
+                Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+
+
+    }
 
 
     @Override

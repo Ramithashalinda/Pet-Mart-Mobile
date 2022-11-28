@@ -249,6 +249,7 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
 
     @Override
     public void onUpdateItemClick(int position) {
+        String id=postViewModelsList.get(position).getId();
          String title=postViewModelsList.get(position).getTitle();
          String postImageUrl=postViewModelsList.get(position).getPostImageUrl();
          String uploadedAt=postViewModelsList.get(position).getUploadedAt();
@@ -260,6 +261,7 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
          String district=postViewModelsList.get(position).getDistrict();
 
             Intent intent=new Intent(this,AddPostMarcketPlaceActivity.class);
+        intent.putExtra("PET_ID",id);
             intent.putExtra("PET_TITLE_DATA",title);
             intent.putExtra("POST_IMAGE_URL_DATA",postImageUrl);
             intent.putExtra("UPLOAD_AT_DATA",uploadedAt);
