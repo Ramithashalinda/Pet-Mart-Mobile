@@ -2,7 +2,6 @@ package com.mart.petsmart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,8 +34,6 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mart.petsmart.model.UploadItems;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,67 +71,6 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post_marcket_place);
-
-        Bundle bundle=getIntent().getExtras();
-        if (bundle != null){
-            Toast.makeText(AddPostMarcketPlaceActivity.this, "Update data", Toast.LENGTH_SHORT).show();
-
-            pPetTitle=bundle.getString("PET_TITLE_DATA");
-            pImageUrl=bundle.getString("POST_IMAGE_URL_DATA");
-            pUploadAt=bundle.getString("UPLOAD_AT_DATA");
-            pDescription=bundle.getString("DESCRIPTION_DATA");
-
-            pPrice=bundle.getString("PRICE_DATA");
-            pPhoneNumber=bundle.getString("PHONE_NUMBER_DATA");
-
-            pCategory=bundle.getString("CATEGORY_DATA");
-            pAnimalType=bundle.getString("ANIMAL_TYPE_DATA");
-            pDistrict=bundle.getString("DISTRICT_DATA");
-
-
-
-            System.out.println("pet title  "+ pPetTitle);
-            System.out.println("Image url  "+ pImageUrl);
-            System.out.println("upload time  "+ pUploadAt);
-            System.out.println("description  "+ pDescription);
-            System.out.println("price  "+ pPrice);
-            System.out.println("phone number  "+ pPhoneNumber);
-            System.out.println("category  "+ pCategory);
-            System.out.println("animal type  "+ pAnimalType);
-            System.out.println("district  "+ pDistrict);
-
-try {
-
-    mEditTextTitleName.setText(pPetTitle);
-    Picasso.get()
-            .load(pImageUrl)
-            .fit().centerCrop()
-            .into(mImageView);
-
-    mEditTestDescription.setText(pDescription);
-    mEditTextPrice.setText(pPrice);
-    mEditTextPhoneNumber.setText(pPhoneNumber);
-}
-catch (Exception e){
-    System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHH  "+ e);
-}
-
-
-
-//
-
-//                    spinnerAnimalType
-//                    spinnerDistrict
-
-
-
-
-        }else {
-            Toast.makeText(AddPostMarcketPlaceActivity.this, "Save data", Toast.LENGTH_SHORT).show();
-
-        }
-
-
 
         bottomNavigationView =(BottomNavigationView) findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -178,7 +113,53 @@ catch (Exception e){
 
         }
 
+        Bundle bundle=getIntent().getExtras();
+        if (bundle != null){
+            Toast.makeText(AddPostMarcketPlaceActivity.this, "Update data", Toast.LENGTH_SHORT).show();
+            pPetTitle=bundle.getString("PET_TITLE_DATA");
+            pImageUrl=bundle.getString("POST_IMAGE_URL_DATA");
+            pUploadAt=bundle.getString("UPLOAD_AT_DATA");
+            pDescription=bundle.getString("DESCRIPTION_DATA");
+            pPrice=bundle.getString("PRICE_DATA");
+            pPhoneNumber=bundle.getString("PHONE_NUMBER_DATA");
+            pCategory=bundle.getString("CATEGORY_DATA");
+            pAnimalType=bundle.getString("ANIMAL_TYPE_DATA");
+            pDistrict=bundle.getString("DISTRICT_DATA");
 
+
+            System.out.println("pet title  "+ pPetTitle);
+            System.out.println("Image url  "+ pImageUrl);
+            System.out.println("upload time  "+ pUploadAt);
+            System.out.println("description  "+ pDescription);
+            System.out.println("price  "+ pPrice);
+            System.out.println("phone number  "+ pPhoneNumber);
+            System.out.println("category  "+ pCategory);
+            System.out.println("animal type  "+ pAnimalType);
+            System.out.println("district  "+ pDistrict);
+
+                mEditTextTitleName.setText(pPetTitle);
+                Picasso.get()
+                        .load(pImageUrl)
+                        .fit().centerCrop()
+                        .into(mImageView);
+
+                mEditTestDescription.setText(pDescription);
+                mEditTextPrice.setText(pPrice);
+                mEditTextPhoneNumber.setText(pPhoneNumber);
+
+            int spinnerCategoryPosition = adapter.getPosition(pCategory);
+            spinnerCategory.setSelection(spinnerCategoryPosition);
+
+            int spinnerAnimalTypePosition = adapter3.getPosition(pAnimalType);
+            spinnerAnimalType.setSelection(spinnerAnimalTypePosition);
+
+            int spinnerDistrictPosition = adapter3.getPosition(pDistrict);
+            spinnerDistrict.setSelection(spinnerDistrictPosition);
+
+        }else {
+            Toast.makeText(AddPostMarcketPlaceActivity.this, "Save data", Toast.LENGTH_SHORT).show();
+
+        }
 
         GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
 
@@ -228,14 +209,12 @@ catch (Exception e){
 
 
     }
-
-            private String getDateToday(){
-                DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date=new Date();
-                String today=dateFormat.format(date);
-
-                return today;
-            }
+    private String getDateToday(){
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date=new Date();
+        String today=dateFormat.format(date);
+        return today;
+    }
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
