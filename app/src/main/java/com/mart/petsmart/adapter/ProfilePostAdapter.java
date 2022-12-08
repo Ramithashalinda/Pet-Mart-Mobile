@@ -43,11 +43,11 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
 
         PostViewModel postViewModel= postViewModelList.get(position);
 
-
-        holder.textViewDateTime.setText(String.valueOf(postViewModel.getUploadedAt()));
-
-        holder.textViewTitle.setText(String.valueOf(postViewModel.getTitle()));
-
+//
+//        holder.textViewDateTime.setText(String.valueOf(postViewModel.getUploadedAt()));
+//
+//        holder.textViewTitle.setText(String.valueOf(postViewModel.getTitle()));
+//
 
 
         Picasso.get()
@@ -69,7 +69,7 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
-        private TextView textViewDateTime,textViewTitle;
+       // private TextView textViewDateTime,textViewTitle;
         private ImageView imageViewPostImage;
 
 
@@ -77,10 +77,10 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
         public ImageViewHolder(View itemView) {
             super(itemView);
 
-            imageViewPostImage = itemView.findViewById(R.id.image_view_profile_upload);
+            imageViewPostImage = itemView.findViewById(R.id.image_view_upload);
 
-            textViewTitle = itemView.findViewById(R.id.text_view_profile_pet_title);
-            textViewDateTime = itemView.findViewById(R.id.text_profile_dateAt);
+        //    textViewTitle = itemView.findViewById(R.id.text_view_profile_pet_title);
+        //    textViewDateTime = itemView.findViewById(R.id.text_profile_dateAt);
 
 
             itemView.setOnClickListener(this);

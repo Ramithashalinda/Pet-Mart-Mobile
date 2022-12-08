@@ -111,9 +111,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Imag
                         case 1:
                             mListener.onShowItemClick(position);
                             return true;
-                        case 2:
-                            mListener.onDeleteItemClick(position);
-                            return true;
                     }
                 }
             }
@@ -136,17 +133,16 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Imag
 
             contextMenu.setHeaderTitle("Select Action");
             MenuItem showItem=contextMenu.add(Menu.NONE,1,1,"Show");
-            MenuItem deleteItem=contextMenu.add(Menu.NONE,2,2,"Delete");
+
 
             showItem.setOnMenuItemClickListener(this);
-            deleteItem.setOnMenuItemClickListener(this);
+
 
         }
     }
     public interface OnItemClickListener{
         void onItemClick(int position);
         void onShowItemClick(int position);
-        void onDeleteItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){

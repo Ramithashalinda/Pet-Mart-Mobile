@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,7 +51,8 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
     private List<PostViewModel> postViewModelsList;
     private ProgressDialog progressDialog;
 
-   private TextView userName,userEmail;
+   private TextView userName;
+   //,userEmail;
   private   CircleImageView userprofileImage;
 
     private void openDetailActivity(String[] data){
@@ -78,12 +80,12 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
         setContentView(R.layout.activity_user_profile_activity);
 
         userName=findViewById(R.id.text_view_user_profile_user_name);
-        userEmail=findViewById(R.id.text_view_user_profile_user_email_address);
+     //   userEmail=findViewById(R.id.text_view_user_profile_user_email_address);
         userprofileImage=findViewById(R.id.image_view_user_profile_image);
         GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
             userName.setText(signInAccount.getDisplayName());
-            userEmail.setText(signInAccount.getEmail());
+           // userEmail.setText(signInAccount.getEmail());
             Picasso.get()
                     .load(signInAccount.getPhotoUrl())
                     .fit().centerCrop()
@@ -98,7 +100,10 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
 
         mRecyclerView =findViewById(R.id.recycler_view_user_profile);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager=new GridLayoutManager(getApplicationContext(),3);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
+    //    mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         postViewModelsList =new ArrayList<>();
         profileViewAdapter =new ProfilePostAdapter(UserProfileActivity.this, postViewModelsList);

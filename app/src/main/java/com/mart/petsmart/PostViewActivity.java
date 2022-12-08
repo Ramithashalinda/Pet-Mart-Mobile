@@ -185,28 +185,4 @@ public class PostViewActivity extends AppCompatActivity implements PostViewAdapt
 
     }
 
-    @Override
-    public void onDeleteItemClick(int position) {
-//        PostViewModel clickedPostViewModel=postViewModelsList.get(position);
-//        final String selectedKey=clickedPostViewModel.getPostImageUrl();
-//
-//
-//        firebaseFirestore.collection("uploads").document(clickedPostViewModel.getPostImageUrl())
-//                .delete()
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//
-//
-//                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure( Exception e) {
-//                        Log.w(TAG, "Error deleting document", e);
-//                    }
-//                });
-
-    }
 }

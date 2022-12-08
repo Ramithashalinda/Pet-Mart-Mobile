@@ -182,10 +182,6 @@ public class CommunityActivity extends AppCompatActivity implements CommunityAda
         openDetailActivity(communityViewData);
     }
 
-    @Override
-    public void onDeleteItemClick(int position) {
-
-    }
 
     private void filterList(String test) {
         List<CommunityModel> filteredList =new ArrayList<>();
