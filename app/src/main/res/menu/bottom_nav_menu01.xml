@@ -10,10 +10,6 @@
         android:icon="@drawable/add"
         android:title="@string/title_notifications" />
     <item
-        android:id="@+id/placeholder"
-        android:title="" />
-
-    <item
         android:id="@+id/navigation_community"
         android:icon="@drawable/friendship"
         android:title="@string/title_community" />

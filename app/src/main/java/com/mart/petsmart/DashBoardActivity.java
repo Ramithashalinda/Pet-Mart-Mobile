@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mart.petsmart.adapter.PetsAdsAdapter;
 import com.mart.petsmart.adapter.PetsCategoryAdapter;
 import com.mart.petsmart.model.PetsAdsModel;
@@ -33,6 +34,7 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
     TextView name;
     CircleImageView profileImage;
     ImageButton dashBoardMeanu,buttonFish,buttonCat,buttonBird,buttonDog;
+    FloatingActionButton floatingActionButton;
 
 
 
@@ -55,8 +57,10 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
         getSupportActionBar().hide();
         setContentView(R.layout.activity_dash_board);
 
-        bottomNavigationView =(BottomNavigationView) findViewById(R.id.nav_view);
+        bottomNavigationView =(BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        floatingActionButton=findViewById(R.id.fab);
 
         name=findViewById(R.id.text_view_dashboard_profile_name);
         profileImage=findViewById(R.id.image_view_profile_image);
@@ -153,6 +157,14 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
             }
         });
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DashBoardActivity.this, TipsViewActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
 
@@ -186,11 +198,11 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
                 startActivity(i);
                 return true;
 
-            case R.id.navigation_profile:
-                Intent i2 = new Intent(DashBoardActivity.this, CommunityActivity.class);
+            case R.id.navigation_community:
+                Intent i2 = new Intent(DashBoardActivity.this, ChatBotActivity.class);
                 startActivity(i2);
                 return true;
-            case R.id.navigation_community:
+            case R.id.navigation_profile:
                 Intent i3 = new Intent(DashBoardActivity.this, UserProfileActivity.class);
                 startActivity(i3);
                 return true;
