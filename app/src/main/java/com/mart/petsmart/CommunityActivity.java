@@ -61,7 +61,7 @@ public class CommunityActivity extends AppCompatActivity implements CommunityAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getSupportActionBar().hide();
+       getSupportActionBar().hide();
         setContentView(R.layout.activity_community_recycler_view);
 
         progressDialog=new ProgressDialog(this);

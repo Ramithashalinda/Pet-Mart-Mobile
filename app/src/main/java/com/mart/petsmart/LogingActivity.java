@@ -98,13 +98,13 @@ public class LogingActivity extends AppCompatActivity {
 
                 if(account != null){
                     User user=new User();
+                    user.setProfileId(account.getId());
                     user.setProfileName(account.getDisplayName());
                     user.setUserEmail(account.getEmail());
                     user.setProfileImageUrl(account.getPhotoUrl().toString());
 
+
                     GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
-                   // System.out.println("userrrrrrrrrr"+FirebaseAuth.getInstance().getCurrentUser().getUid());
-                   // mFirebaseFirestore.collection("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid())
                     mFirebaseFirestore.collection("users").document(signInAccount.getId())
                             .set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

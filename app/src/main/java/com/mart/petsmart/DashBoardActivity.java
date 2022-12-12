@@ -199,7 +199,7 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
                 return true;
 
             case R.id.navigation_community:
-                Intent i2 = new Intent(DashBoardActivity.this, ChatBotActivity.class);
+                Intent i2 = new Intent(DashBoardActivity.this, CommunityActivity.class);
                 startActivity(i2);
                 return true;
             case R.id.navigation_profile:

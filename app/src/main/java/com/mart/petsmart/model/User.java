@@ -1,6 +1,7 @@
 package com.mart.petsmart.model;
 
 public class User {
+    private String profileId;
     private String profileName;
     private String profileImageUrl;
     private String userEmail;
@@ -12,6 +13,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 
     public String getUserEmail() {
