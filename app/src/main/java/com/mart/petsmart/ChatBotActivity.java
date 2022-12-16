@@ -12,6 +12,6 @@ public class ChatBotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.proooooooooooooo);
+        setContentView(R.layout.activity_chat_bot);
     }
 }

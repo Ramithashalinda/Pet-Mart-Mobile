@@ -39,6 +39,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class AddPostMarcketPlaceActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
         {
 
@@ -47,7 +49,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
 
     BottomNavigationView bottomNavigationView;
 
-    private Button mButtonChooseImage;
+    private CircleImageView mButtonChooseImage;
     private Button mButtonUpload;
 
     private EditText mEditTextTitleName , mEditTextPrice ,mEditTextPhoneNumber,mEditTestDescription ;
@@ -160,7 +162,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
             spinnerDistrict.setSelection(spinnerDistrictPosition);
 
         }else {
-            Toast.makeText(AddPostMarcketPlaceActivity.this, "Save data", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(AddPostMarcketPlaceActivity.this, "Save data", Toast.LENGTH_SHORT).show();
 
         }
 

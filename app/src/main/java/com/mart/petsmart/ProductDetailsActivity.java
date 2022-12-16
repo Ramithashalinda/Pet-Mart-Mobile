@@ -20,7 +20,7 @@ import java.util.Date;
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private TextView textViewPostByName,textViewPetTitle,textViewDateTime,textViewDescription,textViewPrice,textViewLocation,textViewCategoryName,textViewAnimalType;
-    private ImageView imageViewPostImage;
+    private ImageView imageViewPostImage,back;
     private Button btnCall,btnMessage;
 
     private void InitializeWidgets(){
@@ -36,6 +36,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         btnCall=findViewById(R.id.button_call);
         btnMessage=findViewById(R.id.button_message);
+        back=findViewById(R.id.image_view_product_back);
 
 
 
@@ -58,6 +59,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
 
         InitializeWidgets();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
 
 
 //receive data from

@@ -33,7 +33,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="35dp" />
 
-
+<!--
             <Button
                 android:id="@+id/button_chose_image"
                 android:layout_width="100dp"
@@ -47,7 +47,24 @@
                 android:text="Choose Image    "
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/image_view"
-                android:textColor="@android:color/background_dark" />
+                android:textColor="@android:color/background_dark" />-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/image_view"
+                android:src="@drawable/placeholder"
+                android:id="@+id/button_chose_image"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/story_plus"
+                android:layout_width="16dp"
+                android:layout_height="13dp"
+                android:layout_below="@+id/image_view"
+                android:layout_marginLeft="191dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/add_story" />
 
             <View
                 android:id="@+id/view1"
@@ -140,10 +157,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearlayout_3"
-
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-
+                android:layout_marginTop="10dp"
                 android:hint="Name"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -151,6 +169,9 @@
                 android:id="@+id/text_price"
                 android:inputType="numberDecimal"
                 android:digits="0123456789."
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_title"
@@ -163,6 +184,9 @@
             <EditText
                 android:id="@+id/text_phone_number"
                 android:layout_width="match_parent"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:inputType="numberDecimal"
                 android:digits="0123456789."
                 android:layout_height="wrap_content"
@@ -178,6 +202,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_phone_number"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
 
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"

@@ -2,6 +2,7 @@ package com.mart.petsmart;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,7 +15,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.mart.petsmart.adapter.PostViewAdapter;
 import com.mart.petsmart.adapter.ProfilePostAdapter;
 import com.mart.petsmart.model.PostViewModel;
+import com.mart.petsmart.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -39,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,7 +57,9 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
     private List<PostViewModel> postViewModelsList;
     private ProgressDialog progressDialog;
 
+   private String profileId,profileImageUrl,profileName,profileEmail;
    private TextView userName;
+   private Button editProfile;
    //,userEmail;
   private   CircleImageView userprofileImage;
 
@@ -82,24 +89,22 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
+        editProfile=findViewById(R.id.button_edit_profile);
+
 
         userName=findViewById(R.id.text_view_user_profile_user_name);
      //   userEmail=findViewById(R.id.text_view_user_profile_user_email_address);
         userprofileImage=findViewById(R.id.image_view_user_profile_image);
-        GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
-        if(signInAccount != null){
-            userName.setText(signInAccount.getDisplayName());
-           // userEmail.setText(signInAccount.getEmail());
-            Picasso.get()
-                    .load(signInAccount.getPhotoUrl())
-                    .fit().centerCrop()
-                    .into(userprofileImage);
-        }
 
-
-
-
-
+//        GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
+//        if(signInAccount != null){
+//           // userName.setText(signInAccount.getDisplayName());
+//           // userEmail.setText(signInAccount.getEmail());
+////            Picasso.get()
+////                    .load(signInAccount.getPhotoUrl())
+////                    .fit().centerCrop()
+////                    .into(userprofileImage);
+//        }
 
 
         mRecyclerView =findViewById(R.id.recycler_view_user_profile);
@@ -122,6 +127,19 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();;
         EventChangeListener();
+        EventChangeListenerProfileDetails();
+
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // String profileId,profileImageUrl,profileName,profileEmail;
+
+                Intent i = new Intent(UserProfileActivity.this, UserProfileDataActivity.class);
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -192,9 +210,39 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
 
     }
 
+    private void EventChangeListenerProfileDetails(){
+
+        GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
+        firebaseFirestore.collection("users").document(signInAccount.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                       // String profileId,profileImageUrl,profileName,profileEmail;
+                        if (documentSnapshot != null) {
+
+                            profileId=documentSnapshot.get("profileId").toString();
+                            profileImageUrl=documentSnapshot.get("profileImageUrl").toString();
+                            profileName=documentSnapshot.get("profileName").toString();
+                            profileEmail=documentSnapshot.get("userEmail").toString();
+
+                            userName.setText(profileName);
+                            Picasso.get()
+                                    .load(profileImageUrl)
+                                    .fit().centerCrop()
+                                    .into(userprofileImage);
+                        } else {
+                            Log.d("LOGGER", "No such document");
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+    }
+
     public void onItemClick(int position) {
-
-
         PostViewModel clickedPostViewModel=postViewModelsList.get(position);
         String[] postViewData={clickedPostViewModel.getPostByProfileName(),clickedPostViewModel.getTitle(),
                 clickedPostViewModel.getDistrict(),clickedPostViewModel.getPostImageUrl(),clickedPostViewModel.getUploadedAt().toString(),
@@ -269,8 +317,8 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
          String animalType=postViewModelsList.get(position).getAnimalType();
          String district=postViewModelsList.get(position).getDistrict();
 
-            Intent intent=new Intent(this,AddPostMarcketPlaceActivity.class);
-        intent.putExtra("PET_ID",id);
+         Intent intent=new Intent(this,AddPostMarcketPlaceActivity.class);
+            intent.putExtra("PET_ID",id);
             intent.putExtra("PET_TITLE_DATA",title);
             intent.putExtra("POST_IMAGE_URL_DATA",postImageUrl);
             intent.putExtra("UPLOAD_AT_DATA",uploadedAt);
@@ -280,9 +328,6 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
             intent.putExtra("CATEGORY_DATA",category);
             intent.putExtra("ANIMAL_TYPE_DATA",animalType);
             intent.putExtra("DISTRICT_DATA",district);
-
-//          String  pPetTitle,pImageUrl,pUploadAt,pDescription,pPrice,pPhoneNumber,pCategory,pAnimalType,pDistrict;
-
 
             startActivity(intent);
 
