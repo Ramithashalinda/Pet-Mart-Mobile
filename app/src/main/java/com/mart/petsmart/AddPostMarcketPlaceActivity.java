@@ -294,7 +294,7 @@ public class AddPostMarcketPlaceActivity extends AppCompatActivity implements Bo
                                         else {
                                             collectionReference.document(id).update("title",titleName,"price",Double.parseDouble(price),"phoneNumber",Integer.parseInt(phoneNumber),"description",description,"postImageUrl",imageUrl,"uploadedAt",uploadDate,"category",category,"animalType",animalType,"district",district);
 
-                                            Toast.makeText(AddPostMarcketPlaceActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddPostMarcketPlaceActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
                                             mEditTextTitleName.setText("");
                                             mEditTextPrice.setText("");
                                             mEditTextPhoneNumber.setText("");

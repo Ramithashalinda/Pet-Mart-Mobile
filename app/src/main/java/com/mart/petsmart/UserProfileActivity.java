@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
    private String profileId,profileImageUrl,profileName,profileEmail;
    private TextView userName;
    private Button editProfile;
+   private ImageView options;
    //,userEmail;
   private   CircleImageView userprofileImage;
 
@@ -89,6 +91,14 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
+        options = findViewById(R.id.options);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UserProfileActivity.this, UserOptionsActivity.class);
+                startActivity(i);
+            }
+        });
         editProfile=findViewById(R.id.button_edit_profile);
 
 
@@ -130,6 +140,8 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
         EventChangeListenerProfileDetails();
 
 
+
+
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +150,14 @@ public class UserProfileActivity extends AppCompatActivity implements ProfilePos
 
                 Intent i = new Intent(UserProfileActivity.this, UserProfileDataActivity.class);
                 startActivity(i);
+
+                Intent intent=new Intent(UserProfileActivity.this,UserProfileDataActivity.class);
+                intent.putExtra("PROFILE_ID",profileId);
+                intent.putExtra("PROFILE_IMAGE_URL",profileImageUrl);
+                intent.putExtra("PROFILE_NAME",profileName);
+                intent.putExtra("PROFILE_EMAIL",profileEmail);
+
+                startActivity(intent);
             }
         });
 
