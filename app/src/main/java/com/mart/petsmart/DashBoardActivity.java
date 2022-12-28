@@ -17,8 +17,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mart.petsmart.adapter.PetNoticeAdapter;
 import com.mart.petsmart.adapter.PetsAdsAdapter;
 import com.mart.petsmart.adapter.PetsCategoryAdapter;
+import com.mart.petsmart.model.PetNoticeModel;
 import com.mart.petsmart.model.PetsAdsModel;
 import com.mart.petsmart.model.PetsCategoryModel;
 import com.squareup.picasso.Picasso;
@@ -37,18 +39,20 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
     FloatingActionButton floatingActionButton;
 
 
-
-
-
     private RecyclerView petAdsRecyclerView;
     private List<PetsAdsModel> petAdsList;
     private PetsAdsAdapter petsAdsAdapter;
 
 
-
     private RecyclerView petCategoryRecyclerView;
     private List<PetsCategoryModel> petsCategoryList;
     private PetsCategoryAdapter petsCategoryAdapter;
+
+
+
+    private RecyclerView petNoticeRecyclerView;
+    private List<PetNoticeModel> petNoticeList;
+    private PetNoticeAdapter petNoticeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +94,22 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
         petsCategoryList.add(new PetsCategoryModel(3,R.drawable.birdcat,"Veterinary Services"));
         petsCategoryList.add(new PetsCategoryModel(4,R.drawable.fishcat,"Veterinary Services"));
 
-
         setPetCategoryRecycler(petsCategoryList);
+
+        petNoticeRecyclerView=findViewById(R.id.recycler_view_dashboard_pets_notice);
+        petNoticeList=new ArrayList<>();
+        petNoticeList.add(new PetNoticeModel(1,R.drawable.p1));
+        petNoticeList.add(new PetNoticeModel(2,R.drawable.p2));
+        petNoticeList.add(new PetNoticeModel(3,R.drawable.p3));
+        petNoticeList.add(new PetNoticeModel(4,R.drawable.p4));
+        petNoticeList.add(new PetNoticeModel(5,R.drawable.p5));
+        petNoticeList.add(new PetNoticeModel(5,R.drawable.p6));
+
+        setPetNoticeRecycler(petNoticeList);
+
+
+
+
 
 
 
@@ -183,6 +201,13 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
         petCategoryRecyclerView.setLayoutManager(layoutManager);
         petsCategoryAdapter=new PetsCategoryAdapter(this,datalist);
         petCategoryRecyclerView.setAdapter(petsCategoryAdapter);
+    }
+
+    private void setPetNoticeRecycler(List<PetNoticeModel> datalist){
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        petNoticeRecyclerView.setLayoutManager(layoutManager);
+        petNoticeAdapter=new PetNoticeAdapter(this,datalist);
+        petNoticeRecyclerView.setAdapter(petNoticeAdapter);
     }
 
 

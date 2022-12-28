@@ -27,13 +27,13 @@
             android:background="@drawable/gbuton"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <ImageButton
+   <!--     <ImageButton
             android:id="@+id/signbuttonFB"
             android:layout_width="370dp"
             android:layout_height="80dp"
             android:layout_marginTop="0dp"
             android:background="@drawable/fbsign"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck" />-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
