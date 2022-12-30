@@ -5,14 +5,25 @@ public class User {
     private String profileName;
     private String profileImageUrl;
     private String userEmail;
+    private String createAt;
 
-    public User(String profileName, String profileImageUrl, String userEmail) {
+    public User(String profileId, String profileName, String profileImageUrl, String userEmail, String createAt) {
+        this.profileId = profileId;
         this.profileName = profileName;
         this.profileImageUrl = profileImageUrl;
         this.userEmail = userEmail;
+        this.createAt = createAt;
     }
 
     public User() {
+    }
+
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
     }
 
     public String getProfileId() {

@@ -28,6 +28,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.mart.petsmart.model.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class LogingActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -70,7 +74,7 @@ public class LogingActivity extends AppCompatActivity {
         mFirebaseFirestore=FirebaseFirestore.getInstance();
 
 
-                findViewById(R.id.signbutton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.signbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -102,6 +106,7 @@ public class LogingActivity extends AppCompatActivity {
                     user.setProfileName(account.getDisplayName());
                     user.setUserEmail(account.getEmail());
                     user.setProfileImageUrl(account.getPhotoUrl().toString());
+                    user.setCreateAt(getDateToday());
 
 
                     GoogleSignInAccount signInAccount= GoogleSignIn.getLastSignedInAccount(this);
@@ -153,6 +158,13 @@ public class LogingActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private String getDateToday(){
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date=new Date();
+        String today=dateFormat.format(date);
+        return today;
     }
 
 
