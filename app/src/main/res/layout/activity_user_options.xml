@@ -26,6 +26,21 @@
         android:layout_margin="8dp"
         android:textSize="18sp"/>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:id="@+id/deleteAccount"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_margin="8dp"
+        android:textSize="18sp"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -39,7 +54,6 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_margin="8dp"
         android:textSize="18sp"/>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

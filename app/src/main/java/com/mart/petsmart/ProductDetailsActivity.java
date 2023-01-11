@@ -116,7 +116,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Uri uri = Uri.parse("sms:"+phoneNumber);
                 Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                it.putExtra("sms_body", "The SMS text");
+                it.putExtra("sms_body", "Hi Ramitha");
                 startActivity(it);
             }
         });
